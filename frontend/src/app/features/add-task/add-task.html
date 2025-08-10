@@ -1,0 +1,11 @@
+<div class="wrap">
+  <h1>Dodaj zadanie</h1>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+    <input type="text" formControlName="title" placeholder="Tytuł zadania" />
+    <button type="submit" [disabled]="form.invalid || submitting">Zapisz</button>
+  </form>
+
+  <div class="err" *ngIf="error">{{ error }}</div>
+  <a routerLink="/tasks">← Wróć do listy</a>
+</div>

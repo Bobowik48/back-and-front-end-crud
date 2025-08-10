@@ -1,0 +1,39 @@
+<div class="add-task-wrapper">
+<a routerLink="/add-task" class="add-task-link">+ Dodaj zadanie</a>
+</div>
+<h1>Lista zadań</h1>
+<div class="task-container">
+  <h1>Lista zadań</h1>
+
+  <!-- Formularz dodawania zadania -->
+  <form [formGroup]="form" (ngSubmit)="addTask()" class="task-form">
+    <input
+      type="text"
+      placeholder="Wpisz nowe zadanie..."
+      formControlName="title"
+    />
+    <button type="submit" [disabled]="form.invalid || submitting">
+      Dodaj
+    </button>
+  </form>
+
+  <!-- Komunikaty -->
+  <div class="error" *ngIf="error">{{ error }}</div>
+  <div class="loading" *ngIf="loading">Ładowanie zadań...</div>
+
+  <!-- Lista zadań -->
+  <ul class="task-list">
+    <li *ngFor="let task of tasks">
+      <input
+        type="checkbox"
+        [checked]="task.done"
+        (change)="toggleDone(task)"
+      />
+      <span [class.done]="task.done">{{ task.title }}</span>
+      <button class="delete-btn" (click)="removeTask(task)">Usuń</button>
+    </li>
+  </ul>
+
+  <!-- Gdy brak zadań -->
+  <p *ngIf="!loading && tasks.length === 0">Brak zadań do wyświetlenia.</p>
+</div>
